@@ -1,23 +1,45 @@
-# cf-demo
+# Getting started
 
-cf-demo is the recommended workflow for using Capital Framework components.
-It is also a sample front-end project.
-[Bower](http://bower.io/) and [Grunt](http://gruntjs.com/) are used to pull
-component source files in to sample project Less and JS files and for compiling
-these files into a [sample page](https://cfpb.github.io/cf-demo/).
+## Requirements
 
-If you're new to Capital Framework, we encourage you to
-[start here](http://cfpb.github.io/capital-framework/).
+- [npm](https://npmjs.org/)
+- [grunt-cli](http://gruntjs.com/getting-started)
+- That's it! NPM will help you install everything else you need.
 
+## Workflow
 
-## Contributing
-
-We welcome your feedback and contributions.
-
-- [Find out about contributing](http://cfpb.github.io/capital-framework/contributing/)
-- [File a bug](https://github.com/cfpb/cf-demo/issues/new?body=%23%23%20URL%0D%0D%0D%23%23%20Actual%20Behavior%0D%0D%0D%23%23%20Expected%20Behavior%0D%0D%0D%23%23%20Steps%20to%20Reproduce%0D%0D%0D%23%23%20Screenshot&labels=bug)
-
-
-## Getting started
-
-[Read the docs](http://cfpb.github.io/capital-framework/cf-demo/)
+1. `npm install`
+  – Initializes Grunt in this folder and installs dependencies.
+- `grunt vendor`
+  1. Installs Bower components.
+  - Runs `grunt bower:install` which does a number of things:
+    - Installs the Bower dependencies.
+    - Moves all Bower dependencies to `vendor`.
+      - If a `main` property is set on the dependency then that is the only file
+        that will be carried over.
+      - If image or font assets of a dependency are listed in the `exportsOverride`
+        section of `bower.json` then those assets are sent to the `src/static/img`
+        or `src/static/fonts` folders respecitvely.
+        All other assets listed in the `exportsOverride` section of `bower.json`
+        will end up in a `vender/DEPENDENCY-NAME` folder. NO other files will be
+        carried over so be careful.
+        This is helpful because it allows you to really slim down the dependency
+        folder to the bare minimum of what you need.
+  - Concatenates all Capital Framework Less files to `vendor/cf-concat/cf-concat.less`
+    to make importing them easier.
+- `grunt vendor-to-static`
+  - Copies Bower dependencies to `src/static` if specified in the `cop:vendor`
+    task options. This is useful for dependency files that you don't want to
+    concatenate into your CSS or JS files but need to be referenced individually.
+- `grunt cssdev`
+  – Compiles `main.less` to `main.css`
+  - Runs autoprefixer on `main.css` (so please don't use vendor prefixes in your
+    styles)
+  - Minifies `main.css` to `main.min.css`
+  - Adds a banner to `main.min.css`
+- `grunt jsdev`
+  - Concatenates all JavaScript files specified in the `concat:bodyScripts` task
+    options into `main.js`.
+  - Minifies `main.js` to `main.min.js`.
+  - Adds a banner to `main.min.js`
+- `grunt` - The default Grunt task simply runs both `grunt cssdev` and `grunt jsdev`.

@@ -1,0 +1,25 @@
+/* ==========================================================================
+   cf-demo / app.less
+   App-specific styles
+   ========================================================================== */
+
+.temp-grid {
+    .grid_wrapper();
+    padding-top: @grid_gutter-width;
+    padding-bottom: @grid_gutter-width;
+
+    &_col {
+        .respond-to-min(400px, {
+            .grid_column(6);
+        });
+        .respond-to-min(650px, {
+            .grid_column(4);
+        });
+        .respond-to-min(800px, {
+            .grid_column(3);
+        });
+        .respond-to-min(1100px, {
+            .grid_column(2);
+        });
+    }
+}

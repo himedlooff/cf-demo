@@ -7,10 +7,6 @@
 *.o
 *.so
 _site/
-dist/
-src/static/css/*.css
-src/static/fonts
-src/static/js/main*.js
 
 # Packages #
 ############
@@ -42,12 +38,17 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-# Grunt.js #
-############
+# Grunt and Grunt Tasks #
+#########################
 node_modules/
 .grunt/
+src/static/css/main.css
+src/static/css/main.min.css
+src/static/fonts/
+src/static/js/main.js
+src/static/js/main.min.js
 
 # Bower packages #
 ##################
 bower_components/
-src/vendor/
+/vendor
